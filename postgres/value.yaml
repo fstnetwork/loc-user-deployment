@@ -1,0 +1,13 @@
+crd:
+  create: false
+configMajorVersionUpgrade:
+  major_version_upgrade_mode: full
+configKubernetes:
+  additional_pod_capabilities:
+    - SYS_NICE
+    - AUDIT_WRITE
+  enable_pod_antiaffinity: true
+  infrastructure_roles_secret_name: postgresql-infrastructure-roles  # postgresql-infrastructure-roles.yaml
+  pod_environment_secret: postgres-env-overrides  # postgres-env-overrides.yaml
+configAwsOrGcp:
+  wal_s3_bucket: postgres-operator-wal

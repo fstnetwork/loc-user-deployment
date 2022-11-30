@@ -1,0 +1,27 @@
+apiVersion: acid.zalan.do/v1
+kind: postgresql
+metadata:
+  name: infra-database
+  namespace: infra
+spec:
+  enableConnectionPooler: false
+  numberOfInstances: 2
+  postgresql:
+    version: "14"
+# ---- for standalone version, uncomment the following section
+# ---- to avoid wal_log overflow:
+#    parameters:
+#      archive_mode: "off"
+  preparedDatabases:  # you can modify or add database names
+    keycloak:
+      defaultUsers: true
+  resources:
+    limits:
+      cpu: 600m
+      memory: 1Gi
+    requests:
+      cpu: 250m
+      memory: 512Mi
+  teamId: infra  # must match name prefix
+  volume:
+    size: 40Gi

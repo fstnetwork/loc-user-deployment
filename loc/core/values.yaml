@@ -1,0 +1,65 @@
+image:
+  registry: ${loc_registry}  # must modify before use
+  pullPolicy: IfNotPresent
+  tag: latest
+tls:
+  issuerRef:
+    name: letsencrypt-production
+    
+auth:
+  # must modify before use; your keyclock LOC realm RSA256 public key
+  publicKey: |
+    -----BEGIN PUBLIC KEY-----
+    ${yuor_keycloak_realm_RSA256_publickey}
+    -----END PUBLIC KEY-----
+ingress:
+  enabled: true
+  host: ${your_loc_api_domain}  # must modify before use
+
+pulsar:
+  type: external
+  external:
+    # database DNS, for example: "${service_name}.${namespace}.svc.cluster.local"
+    endpoint: pulsar://pulsar-proxy.pulsar-system.svc.cluster.local:6650
+    tenant: saffron  # pulsar tenant name
+    namespace: data-process-task  # pulsar namespace
+
+# use eck-operator to create elasticsearch
+elastic:
+  operator:
+    version: 7.17.2
+    kibana:
+      ingress:
+        enabled: true
+        host: ${your_kibana_domain}  # must modify before use
+
+# use jaeger-operator to create jaeger
+jaeger:
+  type: null  # supported type: null, operator, external
+
+# use opentelemetry-operator to create opentelemetry
+opentelemetry:
+  type: null  # supported type: null, operator, external
+
+# use postgres-operator to create postgresql
+postgresql:
+  operator:  # supported type: helm, operator, external
+    spec:
+      preparedDatabases:  # database for LOC studio backend
+        plankton:
+          defaultUsers: true
+s3:
+  type: external
+  external:
+    region: ${your_bucket_region}  # S3 bucket region; must modify before use
+    bucket: ${your_bucket_name}  # S3 bucket name; must modify before use
+    accessKeyId:
+      valueFrom:
+        secretKeyRef:
+          name: saffron-s3
+          key: AWS_ACCESS_KEY_ID  # must modify before use; see ../saffron-s3.yaml
+    secretAccessKey:
+      valueFrom:
+        secretKeyRef:
+          name: saffron-s3
+          key: AWS_SECRET_ACCESS_KEY  # must modify before use; see ../saffron-s3.yaml

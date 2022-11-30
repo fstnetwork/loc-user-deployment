@@ -1,0 +1,13 @@
+image:
+  repository: ${loc_regestry}/loc-studio/frontend  # must modify before use
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+backend:: plankton  # service name of LOC Studio backend
+
+# configure Ingress
+ingress:
+  enabled: true
+  host: ${your_loc_studio_domain}  # must modify before use
+  issuerRef:
+    name: letsencrypt-production

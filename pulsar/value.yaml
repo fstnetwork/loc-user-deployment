@@ -1,0 +1,49 @@
+enabled: true
+initialize: true
+tcpPrefix: tcp-
+tlsPrefix: tls-
+
+components:
+  pulsar_manager: false
+
+monitoring:
+  prometheus: false
+  grafana: false
+  node_exporter: false
+  alert_manager: false
+  
+zookeeper:
+  replicaCount: 3
+  restartPodsOnConfigMapChange: true
+  volumes:
+    data:
+      local_storage: false
+  service:
+    spec:
+      publishNotReadyAddresses: true
+      
+bookkeeper:
+  replicaCount: 3
+  restartPodsOnConfigMapChange: true
+  volumes:
+    useSingleCommonVolume: true
+    common:
+      local_storage: false
+  service:
+    spec:
+      publishNotReadyAddresses: true
+      
+autorecovery:
+  restartPodsOnConfigMapChange: true
+  
+broker:
+  replicaCount: 3
+  restartPodsOnConfigMapChange: true
+  
+proxy:
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+  service:
+    type: ClusterIP

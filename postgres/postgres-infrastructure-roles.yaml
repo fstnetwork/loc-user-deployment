@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgresql-infrastructure-roles
+  namespace: postgres-operator  # match the postgres-operator
+stringData:
+  dbadmin: test  # must modify before use!

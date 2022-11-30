@@ -1,0 +1,67 @@
+image:
+  repository: ${loc_regestry}/loc-studio/backend  # must modify before use
+  pullPolicy: IfNotPresent
+  tag: 1.0.0
+  
+replicaCount: 1
+
+postgresql:
+  # database DNS, for example: "${service_name}.${namespace}.svc.cluster.local"
+  host: saffron-postgresql.loc.svc.cluster.local
+  port: 5432
+  sslMode: prefer
+  database: plankton
+  maxConnections: 30
+  role:
+    value: plankton_owner  # must modify before use; match the role of LOC backend
+  user:
+    valueFrom:
+      secretKeyRef:
+        name: "plankton-owner-user.saffron-postgresql.credentials.postgresql.acid.zalan.do"
+        key: username
+  password:
+    valueFrom:
+      secretKeyRef:
+        name: "plankton-owner-user.saffron-postgresql.credentials.postgresql.acid.zalan.do"
+        key: password  # must modify before use; match the role of LOC backend
+        
+## SMTP server
+mail:
+  host: ${your_SMTP_host}  # must modify before use
+  port: ${yuor_SMTP_port}  # must modify before use; support ports 25, 465, 587
+  username: ${your_SMTP_username}  # must modify before use
+  password: ${your_SMTP_paswword}  # must modify before use
+  senderName: ${your_SMTP_senderName}  # must modify before use
+  senderEmailAddress: ${your_SMTP_senderEmailAddress}  # must modify before use
+  
+# configure Keyclock authentication
+keycloak:
+  url: ${your_keycloak_domain}  # must modify before use
+  realm: loc
+  serviceAccount: "loc-studio-backend"
+  serviceAccountSecret: ""  # must modify before use; LOC backend secret
+  skipCert: false
+  # must modify before use; your keyclock LOC realm RSA256 public key
+  publicKey: |-
+    -----BEGIN PUBLIC KEY-----
+    PKCS#1 or PKCS#8 RSA public key in PEM format
+    -----END PUBLIC KEY-----
+
+# configure LOC core
+locCore:
+  host: ${your_loc_api_domain}  # must modify before use
+  port: 443
+  useHttp: false
+  skipCert: false
+  
+## configure LOC studio frontend
+frontendConfig:
+  backend:
+    endpoint: ${your_loc_studio_domain}  # must modify before use
+  core:
+    endpoint: ${your_loc_api_domain}  # must modify before use
+    eventIndex: system_search
+  oidc:
+    clientId: loc-studio-frontend
+    endpoint: ${your_keycloak_domain}/auth  # must modify before use
+    realm: loc

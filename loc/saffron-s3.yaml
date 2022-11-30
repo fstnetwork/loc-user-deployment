@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: loc
+  name: saffron-s3
+type: Opaque
+stringData:
+  AWS_ACCESS_KEY_ID: ${your_aws_s3_accessKeyId}  # must modify before use!
+  AWS_SECRET_ACCESS_KEY: ${your_aws_s3_secretAccessKey}  # must modify before use!

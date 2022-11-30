@@ -1,0 +1,68 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: default
+  namespace: istio-system
+spec:
+  profile: default
+  hub: gcr.io/istio-release
+  components:
+    cni:
+      enabled: false
+    egressGateways:
+      - name: istio-egressgateway
+        enabled: true
+        k8s:
+          hpaSpec:
+            minReplicas: 2
+    ingressGateways:
+      - name: istio-ingressgateway
+        enabled: true
+        k8s:
+          hpaSpec:
+            minReplicas: 2
+          service:
+            ports:
+            - name: http2
+              port: 80
+              protocol: TCP
+              targetPort: 8080
+            - name: https
+              port: 443
+              protocol: TCP
+              targetPort: 8443
+    pilot:
+      enabled: true
+      k8s:
+        hpaSpec:
+          minReplicas: 2
+        env:
+          - name: PILOT_USE_ENDPOINT_SLICE
+            value: "true"
+          - name: PILOT_ENABLE_REDIS_FILTER
+            value: "true"
+          - name: PILOT_ENABLE_MYSQL_FILTER
+            value: "true"
+          - name: PILOT_ENABLE_THRIFT_FILTER
+            value: "true"
+  meshConfig:
+    accessLogFile: /dev/stdout
+    enableTracing: true
+    defaultConfig:
+      proxyMetadata:
+        ISTIO_META_DNS_CAPTURE: "true"
+        BOOTSTRAP_XDS_AGENT: "true"
+  values:
+    global:
+      istiod:
+        enableAnalysis: true
+    cni:
+      excludeNamespaces:
+        - istio-system
+        - kube-system
+    telemetry:
+      v2:
+        metadataExchange:
+          wasmEnabled: true
+        prometheus:
+          wasmEnabled: true
