@@ -6,9 +6,9 @@ stringData:
   USE_WALG_BACKUP: "true"
   USE_WALG_RESTORE: "true"
   CLONE_USE_WALG_RESTORE: "true"
-  AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY}"  # modify before use
-  AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"  # modify before use
-  WALE_S3_ENDPOINT: "http+path://your.s3.path"  # modify before use
+  AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY}"  # must modify before use
+  AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"  # must modify before use
+  WALE_S3_ENDPOINT: "http+path://your.s3.path"  # must modify before use
   WALG_DISABLE_S3_SSE: "true"
-  AWS_ENDPOINT: "http://your.s3.path"  # modify before use
+  AWS_ENDPOINT: "http://your.s3.path"  # must modify before use
   AWS_S3_FORCE_PATH_STYLE: "true"

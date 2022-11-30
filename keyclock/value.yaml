@@ -23,16 +23,16 @@ postgresql:
   enabled: false
 
 auth:
-  adminUser: test-admin  # modify before use
-  adminPassword: test-admin  # modify before use
-  managementPassword: test-admin  # modify before use
+  adminUser: test-admin  # must modify before use
+  adminPassword: test-admin  # must modify before use
+  managementPassword: test-admin  # must modify before use
 
 externalDatabase:
   # database DNS, for example: "${service_name}.${namespace}.svc.cluster.local"
   host: infra-database.infra.svc.cluster.local
   port: 5432
-  user: "${your_username}"  # keyclock owner
-  password: "${your_password}"  # keyclock password
+  user: "${your_username}"  # must modify before use; keyclock owner
+  password: "${your_password}"  # must modify before use; keyclock password
   database: keycloak  # database name in postgresql-infra.yaml
 
 cache:

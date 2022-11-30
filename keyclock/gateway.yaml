@@ -8,13 +8,13 @@ metadata:
       istio: ingressgateway
     servers:
     - hosts:
-      - "${your_keycloak_domain}"
+      - "${your_keycloak_domain}"  # must modify before use
       port:
         name: https
         number: 443
         protocol: HTTPS
       tls:
-        # certificate secret must be in the same namespace of istio-ingress
+        # must modify before use; certificate secret must be in the same namespace of istio-ingress
         credentialName: "${your_certificate_secret}"
         minProtocolVersion: TLSV1_3  # depends on certificate and service
         mode: SIMPLE

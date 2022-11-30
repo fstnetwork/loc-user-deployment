@@ -7,11 +7,11 @@ spec:
   gateways:
   - keycloak-ingress  # name in gateway.yaml
   hosts:
-  - "$${your_keycloak_domain}"
+  - "$${your_keycloak_domain}"  # must modify before use
   http:
   - route:
     - destination:
-        # database DNS, for example: "${service_name}.${namespace}.svc.cluster.local"
+        # must modify before use; database DNS, for example: "${service_name}.${namespace}.svc.cluster.local"
         host: keycloak-headless.keycloak.svc.cluster.local
         port:
           number: 80

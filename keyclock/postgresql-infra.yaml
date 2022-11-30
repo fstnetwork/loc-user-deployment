@@ -8,8 +8,8 @@ spec:
   numberOfInstances: 2
   postgresql:
     version: "14"
-# ---- for standalone version, uncomment the following section
-# ---- to avoid wal_log overflow:
+# --- for standalone version, uncomment the following section
+# --- to avoid wal_log overflow:
 #    parameters:
 #      archive_mode: "off"
   preparedDatabases:  # you can modify or add database names
