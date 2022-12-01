@@ -1,17 +1,17 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: keycloak-headless
-  namespace: keycloak
+  name: vault-headless
+  namespace: vault
 spec:
   gateways:
-  - keycloak-ingress  # name in keyclock/gateway.yaml
+  - vault-ingress  # name in vault/gateway.yaml
   hosts:
-  - "$${your_keycloak_domain}"  # must modify before use
+  - "${your_vault_domain}"  # must modify before use
   http:
   - route:
     - destination:
         # must modify before use; database DNS, for example: "${service_name}.${namespace}.svc.cluster.local"
-        host: keycloak-headless.keycloak.svc.cluster.local
+        host: vault-ui.vault.svc.cluster.local
         port:
-          number: 80
+          number: 8200

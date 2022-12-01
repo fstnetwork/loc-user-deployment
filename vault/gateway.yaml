@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: vault-ingress
+  namespace: vault
+  spec:
+    selector:
+      istio: ingressgateway
+    servers:
+    - hosts:
+      - "${your_vault_domain}"
+      port:
+        name: https
+        number: 443
+        protocol: HTTPS
+      tls:
+        # must modify before use; certificate secret must be in the same namespace of istio-ingress
+        credentialName: "${your_certificate_secret}"
+        minProtocolVersion: TLSV1_3  # depends on certificate and service
+        mode: SIMPLE
