@@ -1,0 +1,10 @@
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+- apiVersion: apiextensions.k8s.io/v1
+  kind: CustomResourceDefinition
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: MutatingWebhookConfiguration
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration

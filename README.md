@@ -6,4 +6,4 @@ This repository contains template files required for LOC's latest user deploymen
 git clone https://github.com/fstnetwork/loc-user-deployment.git
 ```
 
-Please refer to [official documentation](https://documentation.loc.fst.network/deployment-guide) for details.
+Please refer to [user deployment guide](https://documentation.loc.fst.network/deployment-guide) on official documentation for details.
